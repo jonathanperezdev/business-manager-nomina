@@ -1,0 +1,38 @@
+version: '3.5'
+services:
+  BMDBNOMINA:
+    image: postgres:12
+    volumes:
+      - business-manager-data:/var/lib/postgresql/data
+    expose:
+      - 5434
+    #All services into the BM_NETWORK use the internal port 5432 external services use 5433, in config should be BMDBBNOMINA:5432
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    restart: unless-stopped
+  BMNOMINA:
+    image: business-manager-nomina-server:1.0-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://BMDISCOVERY:8761/eureka
+        -Dspring.profiles.active=docker
+        -agentlib:jdwp=transport=dt_socket,address=5082,server=y,suspend=n
+    restart: on-failure:10
+    expose:
+      - 8002
+      - 5002
+    ports:
+      - 8002:8002
+      - 5002:5002
+    depends_on:
+      - BMDBNOMINA
+volumes:
+  business-manager-data:
+networks:
+  default:
+    external:
+      name: BM_NETWORK
