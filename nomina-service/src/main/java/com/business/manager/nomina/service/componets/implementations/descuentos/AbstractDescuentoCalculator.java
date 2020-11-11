@@ -8,7 +8,7 @@ import com.business.manager.nomina.daos.entities.Devengado;
 import com.business.manager.nomina.daos.entities.Empleado;
 import com.business.manager.nomina.daos.entities.PeriodoPago;
 import com.business.manager.nomina.service.componets.DescuentoCalculator;
-import com.business.manager.nomina.service.componets.ParametroComponent;
+import com.business.manager.nomina.service.services.ParametroService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +18,8 @@ import java.util.Optional;
 
 public abstract class AbstractDescuentoCalculator implements DescuentoCalculator {
 
-    private ParametroComponent parametroComponent;
+    @Autowired
+    private ParametroService parametroService;
 
     protected Empleado empleado;
     protected PeriodoPago periodoPago;
@@ -43,7 +44,7 @@ public abstract class AbstractDescuentoCalculator implements DescuentoCalculator
     }
 
     private BigDecimal getProcentaje(ConceptoDescuento concepto){
-        return NumberUtils.createBigDecimal(parametroComponent.getValueOfParametro(concepto.name()));
+        return NumberUtils.createBigDecimal(parametroService.getValueOfParametro(concepto.name()));
     }
 
     @Override
@@ -59,9 +60,4 @@ public abstract class AbstractDescuentoCalculator implements DescuentoCalculator
     protected abstract boolean isDescuentoAplicable();
 
     protected abstract BigDecimal calcularBaseGravable(EnumMap<ConceptoDevengado, Devengado> devengados, ConceptoDescuento concepto);
-
-    @Autowired
-    public final void setParametroComponent(ParametroComponent parametroComponent) {
-        this.parametroComponent = parametroComponent;
-    }
 }

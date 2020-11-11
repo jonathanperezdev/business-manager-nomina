@@ -1,7 +1,6 @@
 package com.business.manager.nomina.daos.entities;
 
 import com.business.manager.nomina.api.enums.ConceptoDescuento;
-import com.business.manager.nomina.api.enums.ConceptoDevengado;
 import com.business.manager.nomina.api.enums.GrupoDescuento;
 import lombok.AccessLevel;
 import lombok.Data;

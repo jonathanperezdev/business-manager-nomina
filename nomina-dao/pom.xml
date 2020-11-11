@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <artifactId>nomina</artifactId>
+    <parent>
+        <artifactId>nomina</artifactId>
+        <groupId>com.business.manager.nomina</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>com.business.manager.nomina</groupId>
+    <artifactId>nomina-dao</artifactId>
+    <name>nomina-dao</name>
     <version>1.0-SNAPSHOT</version>
-  </parent>
+    <description>SpringCloud dao project for nomina</description>
 
-  <groupId>com.business.manager.nomina</groupId>
-  <artifactId>nomina-dao</artifactId>
-  <name>nomina-dao</name>
-  <version>1.0-SNAPSHOT</version>
-  <description>SpringCloud dao project for nomina</description>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
-    </dependency>
+    <dependencies>
       <dependency>
-          <groupId>com.business.manager.nomina</groupId>
-          <artifactId>nomina-api</artifactId>
-          <version>1.0-SNAPSHOT</version>
-          <scope>compile</scope>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
       </dependency>
-  </dependencies>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.business.manager.nomina</groupId>
+        <artifactId>nomina-api</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <scope>compile</scope>
+      </dependency>
+
+      <!--Redis configuration-->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-redis</artifactId>
+          <exclusions>
+              <exclusion>
+                  <groupId>io.lettuce</groupId>
+                  <artifactId>lettuce-core</artifactId>
+              </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+    </dependencies>
 </project>

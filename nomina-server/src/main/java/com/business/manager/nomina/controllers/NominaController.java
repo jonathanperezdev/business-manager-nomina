@@ -2,6 +2,7 @@ package com.business.manager.nomina.controllers;
 
 import com.business.manager.nomina.api.models.PeriodoPagoModel;
 import com.business.manager.nomina.service.services.NominaService;
+import com.business.manager.nomina.service.services.ParametroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,9 @@ public class NominaController {
     @Autowired
     private NominaService nominaService;
 
+    @Autowired
+    private ParametroService parametroService;
+
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -34,5 +38,4 @@ public class NominaController {
     PeriodoPagoModel createParametro(@PathVariable("idPeriodo") Long idPeriodo) {
         return nominaService.liquidarNomina(idPeriodo);
     }
-
 }
