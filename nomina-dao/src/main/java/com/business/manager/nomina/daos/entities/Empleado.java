@@ -9,15 +9,9 @@ import lombok.NonNull;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.math.BigDecimal;
-import java.util.EnumSet;
-import java.util.Optional;
-
 
 @Data
 @NoArgsConstructor
@@ -25,6 +19,7 @@ import java.util.Optional;
 @Table(name = "EMPLEADO")
 public class Empleado {
     @Id
+    @NonNull
     private Long id;
 
     @NonNull

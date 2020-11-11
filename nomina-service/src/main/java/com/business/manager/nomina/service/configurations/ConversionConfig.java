@@ -1,5 +1,8 @@
 package com.business.manager.nomina.service.configurations;
 
+import com.business.manager.nomina.api.models.ParametroModel;
+import com.business.manager.nomina.daos.entities.Parametro;
+import com.business.manager.nomina.service.converters.EmpleadoEntityConverter;
 import com.business.manager.nomina.service.converters.PeriodoPagoModelConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +25,17 @@ public class ConversionConfig {
     @Autowired
     private PeriodoPagoModelConverter periodoPagoModelConverter;
 
+    @Autowired
+    private EmpleadoEntityConverter empleadoEntityConverter;
+
+    private Converter<ParametroModel, Parametro> parametroEntityConverter = new Converter<ParametroModel, Parametro>() {
+
+        @Override
+        public Parametro convert(ParametroModel parametroModel) {
+            return modelMapper.map(parametroModel, Parametro.class);
+        }
+    };
+
     @Bean
     @Qualifier("customConversionService")
     public ConversionService customConversionService() {
@@ -29,6 +43,9 @@ public class ConversionConfig {
         Set<Converter> converters = new HashSet<>();
 
         converters.add(periodoPagoModelConverter);
+        converters.add(parametroEntityConverter);
+
+        converters.add(empleadoEntityConverter);
 
         factory.setConverters(converters);
         factory.afterPropertiesSet();
